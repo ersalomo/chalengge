@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Map<Integer, Item> map = new HashMap<>();
         List<Item> orderedMenu = new ArrayList<Item>();
+        Scanner sc = new Scanner(System.in);
 
         Item nasiGoreng = new Food("Nasi Goreng",    15.000,1);
         Item mieGoreng  = new Food("Mie Goreng",     15.000,1);
@@ -28,7 +29,7 @@ public class Main {
         printLine("Selamat datang di BinarFud");
         while (isYes) {
             clearConsole();
-            int choice = getChoice();
+            int choice = getChoice(sc);
             if(choice == 0) {
                 System.out.println("Thank you :) ");
                 break;
@@ -36,19 +37,16 @@ public class Main {
             if (choice == 99) {
                 confirmPayment(orderedMenu);
                 break;
-
-
             }
-
             printLine("Berapa pesanan Anda");
-//           Integer numberedChoice = getUserInput();
-            Item item =  map.get(choice); // choice number harus di validasi
+            Item item =  map.get(choice);
             System.out.printf("%s \t| %.3f \n" ,item.name(), item.price());
-            Integer qty = getUserInput("qty => ");
+            Integer qty = getUserInput("qty => ", sc);
             item.count(qty);
             orderedMenu.add(item);
             isYes = isYes("Lanjut (y/n) => ");
         }
+        sc.close();
 
     }
 
@@ -58,25 +56,29 @@ public class Main {
                         "=== %s ===\n" +
                         "==================================\n"
         , msg);
-        System.out.println(header);
+        System.out.print(header);
     }
-    static int getUserInput(String msg) {
-        Scanner sc = new Scanner(System.in);
+    static int getUserInput(String msg, Scanner sc) {
         System.out.printf("%s", msg);
         return sc.nextInt();
     }
-    static int getChoice() {
+    static int getChoice(Scanner sc) {
         System.out.println("Silahkan pilih menu yang tersedia");
-        System.out.println(" 1. Nasi Goreng  \t| 15.000");
-        System.out.println(" 2. Mie Goreng   \t| 13.000");
-        System.out.println(" 3. Nasi + Ayam  \t| 18.000");
-        System.out.println(" 4. Es Teh Manis \t| 3.000");
-        System.out.println(" 5. Es Jeruk     \t| 5.000");
+        System.out.println(" 1. Nasi Goreng  \t  15.000");
+        System.out.println(" 2. Mie Goreng   \t  13.000");
+        System.out.println(" 3. Nasi + Ayam  \t  18.000");
+        System.out.println(" 4. Es Teh Manis \t  3.000");
+        System.out.println(" 5. Es Jeruk     \t  5.000");
         System.out.println("99. Pesan dan Bayar");
         System.out.println(" 0. Keluar");
-        Scanner sc = new Scanner(System.in);
-        System.out.println("=> ");
-        return sc.nextInt();
+        System.out.print("=> ");
+        int choice = sc.nextInt();
+        while (!validChosenNumber(choice)){
+            System.out.print("Masukkan pilihan yang tersedia : ");
+            choice = sc.nextInt();
+        }
+
+        return choice;
     }
 
     public static boolean isYes(String msg) {
@@ -103,28 +105,53 @@ public class Main {
     }
 
     static void confirmPayment(List<Item> orderedMenu) {
+        if(orderedMenu.isEmpty()){
+            System.out.println("Belum ada item yang ditambahkan");
+            return;
+        }
         printLine("Konfirmasi pembayaran Anda");
         int total= 0;
         double totalPrice = 0.00;
 
         for (Item orderedItem: orderedMenu) {
-            String name = orderedItem.name();
-            double price = orderedItem.price();
-            int count = orderedItem.count();
-            total += count;
-            totalPrice += (count * price);
-            System.out.printf("%s \t %d \t\t %.3f", name, count, price);
+            String name     = orderedItem.name();
+            double price    = orderedItem.price();
+            int count       = orderedItem.count();
+            total           += count;
+            totalPrice      += (count * price);
+            System.out.printf("%s  \t %d \t %.3f", name, count, price);
             System.out.println();
         }
-        System.out.println("----------------------------------+");
-        System.out.printf("Total \t %d \t%.3f \n", total, totalPrice);
+        System.out.println("--------------------------------- +");
+        System.out.printf("Total %12d \t %.3f \n", total, totalPrice);
         System.out.println();
         System.out.println("1. Konfirmasi dan Bayar");
         System.out.println("2. Kembali ke menu utama");
         System.out.println("0. Keluar aplikasi");
+        System.out.println();
 
-        if(2 == 2) {return;}
+//        if(2 == 2) {return;}
+        printPaymentStruct();
 
+    }
+
+    static boolean validChosenNumber(int chosenNumber) {
+        int[] validNumber = {1,2,3,4,5,99,0};
+
+        for (int num : validNumber) {
+            if (num == chosenNumber ) return true;
+        }
+        return false;
+    }
+
+    static void printPaymentStruct() {
+        printLine("BinarFud");
+        System.out.println("Terima kasih sudah memesan di BinarFud");
+        System.out.println("Dibawahi ini adalah pesanan anda");
+
+        System.out.println("Pembayaran BinarCash");
+
+        printLine("Simpan struk ini sebagai\n bukti pembayaran");
     }
 
 }
