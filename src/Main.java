@@ -1,32 +1,27 @@
 import Model.Beverage;
 import Model.Food;
 import Model.Item;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Map<Integer, Item> map = new HashMap<>();
-        List<Item> orderedMenu = new ArrayList<Item>();
+
         Scanner sc = new Scanner(System.in);
+        Map<Integer, Item> map = mappingOrderMenu();
+        mainMenu(map, sc);
+        sc.close();
 
-        Item nasiGoreng = new Food("Nasi Goreng",    15.000,1);
-        Item mieGoreng  = new Food("Mie Goreng",     15.000,1);
-        Item nasiAyam   = new Food("Nasi + Ayam",    18.000,1);
-        Item esTeh      = new Beverage("Es Teh Manis",3.000,1);
-        Item esJeruk    = new Beverage("Es Jeruk",    5.000,1);
+    }
 
-        map.put(1, nasiGoreng);
-        map.put(2, mieGoreng);
-        map.put(3, nasiAyam);
-        map.put(4, esTeh);
-        map.put(5, esJeruk);
-
+    private static void mainMenu(Map<Integer,Item> map, Scanner sc) {
+        List<Item> orderedMenu = new ArrayList<>(map.values());
         boolean isYes = true;
-        printLine("Selamat datang di BinarFud");
+        String header = printLine("Selamat datang di BinarFud");
+        System.out.println(header);
         while (isYes) {
             clearConsole();
             int choice = getChoice(sc);
@@ -35,7 +30,7 @@ public class Main {
                 break;
             }
             if (choice == 99) {
-                confirmPayment(orderedMenu);
+                confirmPayment(orderedMenu, sc);
                 break;
             }
             printLine("Berapa pesanan Anda");
@@ -44,19 +39,27 @@ public class Main {
             Integer qty = getUserInput("qty => ", sc);
             item.count(qty);
             orderedMenu.add(item);
-            isYes = isYes("Lanjut (y/n) => ");
+            isYes = isYes("Lanjut (y/n) => ", sc);
         }
-        sc.close();
+    }
+    static Map<Integer,Item> mappingOrderMenu() {
+        Map<Integer, Item> map = new HashMap<>();
 
+        map.put(1, new Food("Nasi Goreng",    15.000,1));
+        map.put(2, new Food("Mie Goreng",     15.000,1));
+        map.put(3, new Food("Nasi + Ayam",    18.000,1));
+        map.put(4, new Beverage("Es Teh Manis",3.000,1));
+        map.put(5, new Beverage("Es Jeruk",    5.000,1));
+        return map;
     }
 
-    static void printLine(String msg) {
+    static String printLine(String msg) {
         String header = String.format(
                         "==================================\n" +
-                        "=== %s ===\n" +
-                        "==================================\n"
+                        "\t%8s \n" +
+                        "=================================="
         , msg);
-        System.out.print(header);
+        return header;
     }
     static int getUserInput(String msg, Scanner sc) {
         System.out.printf("%s", msg);
@@ -73,7 +76,8 @@ public class Main {
         System.out.println(" 0. Keluar");
         System.out.print("=> ");
         int choice = sc.nextInt();
-        while (!validChosenNumber(choice)){
+        int[]validNumber = {0,1,2,3,4,5,99};
+        while (!validChosenNumber(validNumber, choice)){
             System.out.print("Masukkan pilihan yang tersedia : ");
             choice = sc.nextInt();
         }
@@ -81,8 +85,7 @@ public class Main {
         return choice;
     }
 
-    public static boolean isYes(String msg) {
-        Scanner sc = new Scanner(System.in);
+    public static boolean isYes(String msg, Scanner sc) {
         System.out.printf("%s", msg);
         String input = sc.next();
         while (!input.equalsIgnoreCase("y") &&
@@ -104,39 +107,43 @@ public class Main {
         }
     }
 
-    static void confirmPayment(List<Item> orderedMenu) {
+    static void confirmPayment(List<Item> orderedMenu, Scanner sc) {
         if(orderedMenu.isEmpty()){
             System.out.println("Belum ada item yang ditambahkan");
             return;
         }
-        printLine("Konfirmasi pembayaran Anda");
-        int total= 0;
-        double totalPrice = 0.00;
 
-        for (Item orderedItem: orderedMenu) {
-            String name     = orderedItem.name();
-            double price    = orderedItem.price();
-            int count       = orderedItem.count();
-            total           += count;
-            totalPrice      += (count * price);
-            System.out.printf("%s  \t %d \t %.3f", name, count, price);
-            System.out.println();
-        }
-        System.out.println("--------------------------------- +");
-        System.out.printf("Total %12d \t %.3f \n", total, totalPrice);
-        System.out.println();
+        String header = printLine("Konfirmasi pembayaran Anda");
+        System.out.println(header);
+        printDetailOrder(orderedMenu);
         System.out.println("1. Konfirmasi dan Bayar");
         System.out.println("2. Kembali ke menu utama");
         System.out.println("0. Keluar aplikasi");
         System.out.println();
+        int[] validNumber = {0,1,2};
+        int input = getUserInput("=> ", sc);
 
-//        if(2 == 2) {return;}
-        printPaymentStruct();
+        while (!validChosenNumber(validNumber, input)){
+            System.out.println("Pilih menu yang tersedia");
+            input = getUserInput("=> ", sc);
+
+        }
+
+        if(input == 0) {
+            System.exit(0);
+            System.out.println("Thank you :)");
+        }
+        if (input == 1) {
+            printPaymentStruct(orderedMenu);
+        }else {
+//            System.out.println(Arrays.toString(orderedMenu.toArray()));
+            Map<Integer, Item> newMap = new HashMap();
+            mainMenu(newMap, sc);
+        };
 
     }
 
-    static boolean validChosenNumber(int chosenNumber) {
-        int[] validNumber = {1,2,3,4,5,99,0};
+    static boolean validChosenNumber(int[] validNumber, int chosenNumber) {
 
         for (int num : validNumber) {
             if (num == chosenNumber ) return true;
@@ -144,14 +151,73 @@ public class Main {
         return false;
     }
 
-    static void printPaymentStruct() {
-        printLine("BinarFud");
-        System.out.println("Terima kasih sudah memesan di BinarFud");
-        System.out.println("Dibawahi ini adalah pesanan anda");
+    static void printPaymentStruct(List<Item> ordered) {
+        List<String> template = new ArrayList<>();
+        String header = printLine("BinarFud");
+        String msg = "Terima kasih sudah memesan\ndi BinarFud\n\n" +
+                     "Dibawahi ini adalah pesanan anda";
+        String desc = "Pembayaran: BinarCash";
+        String footer = printLine("Simpan struk ini sebagai\n\tbukti pembayaran");
 
-        System.out.println("Pembayaran BinarCash");
+        System.out.println(header);
+        System.out.println(msg);
+        String detailOrderStr = printDetailOrder(ordered);
+        System.out.println(desc);
+        System.out.println(footer);
 
-        printLine("Simpan struk ini sebagai\n bukti pembayaran");
+        template.add(header);
+        template.add(msg);
+        template.add(detailOrderStr);
+        template.add(desc);
+        template.add(footer);
+        saveStruct(template);
+
     }
 
+    static String printDetailOrder(List<Item> orderedMenu) {
+        StringBuilder sb = new StringBuilder();
+        int total= 0;
+        double totalPrice = 0.00;
+
+        System.out.println();
+        for (Item orderedItem: orderedMenu) {
+            String name     = orderedItem.name();
+            double price    = orderedItem.price();
+            int count       = orderedItem.count();
+            total           += count;
+            totalPrice      += (count * price);
+            String pesanan = String.format("%s  \t %d \t %.3f", name, count, price);
+            sb.append(pesanan + "\n");
+            System.out.print(pesanan + "\n");
+        }
+
+        String linePlus = "--------------------------------- +";
+        String totalStr = String.format("Total %12d \t %.3f \n", total, totalPrice);
+        System.out.println(linePlus+"\n");
+        System.out.println(totalStr);
+        sb.append(linePlus+"\n");
+        sb.append(totalStr);
+        return sb.toString();
+    }
+
+    static void saveStruct(List<String> desc) {
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter("struk.txt"));
+            for (String line : desc) {
+                writer.write(line);
+                writer.newLine();
+            }
+        }catch (IOException e) {
+            System.out.println("Error " + e.getMessage());
+        }finally {
+            try{
+                if(writer != null) {
+                    writer.close();
+                }
+            }catch (IOException e) {
+                System.out.println("Error "+ e.getMessage());
+            }
+        }
+    }
 }
