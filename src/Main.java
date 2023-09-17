@@ -23,7 +23,7 @@ public class Main {
 
         while (isYes) {
             clearConsole();
-            int choice = getChoice(sc);
+            int choice = getChoice();
             if(choice == 0) {
                 System.out.println("Thank you :) ");
                 return;
@@ -33,26 +33,41 @@ public class Main {
                     System.out.println("Belum ada item yang ditambahkan");
                     continue;
                 } else {
-                    confirmPayment(sc);
+                    confirmPayment();
                     return;
                 }
             }
             printLine("How many you want to buy : ");
-            Item item =  map.get(choice);
-            System.out.printf("%s \t| %.3f" ,item.name(), item.price());
-            System.out.println("\ninput 0 untuk kembali");
-            Integer qty = getUserInput("qty => ", sc);
+            Item selectedItem =  map.get(choice);
+
+            System.out.printf("%s \t| %.3f" ,selectedItem.name(), selectedItem.price());
+            System.out.println("\nInput 0 untuk kembali");
+
+            Integer qty = getUserInput("qty => ");
             if (qty == 0) continue;
-            item.count(qty);
-            orderedMenu.add(item);
+            addOrder(selectedItem, qty);
             isYes = isYes("Lanjut (y/n) => ", sc);
         }
         sc.close();
 
     }
+    static void addOrder(Item selectedItem, Integer qty) {
+        boolean isSameItem = false;
+        for (Item item : orderedMenu) {
+            if (item.name().equals(selectedItem.name())) {
+                item.count(item.count() + qty);
+                isSameItem = true;
+                break;
+            }
+        }
+        if (!isSameItem) {
+            selectedItem.count(qty);
+            orderedMenu.add(selectedItem);
+        }
+
+    }
     static Map<Integer,Item> mappingOrderMenu() {
         Map<Integer, Item> map = new HashMap<>();
-
         map.put(1, new Food("Nasi Goreng",    15.000));
         map.put(2, new Food("Mie Goreng",     15.000));
         map.put(3, new Food("Nasi + Ayam",    18.000));
@@ -64,15 +79,30 @@ public class Main {
     static String printLine(String msg) {
         return String.format(
                         "==================================\n" +
-                        "\t%8s \n" +
+                        "%s \n" +
                         "=================================="
         , msg);
     }
-    static int getUserInput(String msg, Scanner sc) {
+    static int getUserInput(String msg) {
+        Scanner sc = new Scanner(System.in);
         System.out.print(msg);
-        return sc.nextInt();
+
+        while (true) {
+            if (sc.hasNextInt()) {
+                return sc.nextInt();
+            } else {
+                System.out.println("Pilihan tidak tersedia");
+                String errMsg = getErrorInputMsg("Mohon masukkan input\npilihan Anda");
+                if (isYes(errMsg, sc)) {
+                    System.out.print(msg);
+                } else {
+                    System.exit(0);
+                }
+            }
+        }
     }
-    static int getChoice(Scanner sc) {
+
+    static int getChoice() {
         System.out.println("Silahkan pilih menu yang tersedia");
         Map<Integer, Item> items = mappingOrderMenu();
         for (Map.Entry<Integer, Item> itemMap : items.entrySet()){
@@ -84,38 +114,27 @@ public class Main {
         System.out.println("99. Pesan dan Bayar");
         System.out.println(" 0. Keluar");
         Integer[] validNumber = serializeValidChoices(items.keySet());
-        int choice;
-        System.out.print("=> ");
-        while (true) {
-            if(sc.hasNextInt()){
-                choice = sc.nextInt();
-                break;
-            }else{
-                System.out.printf("Masukkan pilihan yang valid (%s)! : ", Arrays.toString(validNumber));
-                sc.next();
-            }
-        }
-
+        int choice = getUserInput("=> ");
         while (!validChosenNumber(validNumber, choice)) {
-            System.out.print("Masukkan pilihan yang tersedia : ");
-            choice = sc.nextInt();
+            choice = getUserInput("\nPilihan Anda tidak tersedia :( ");
         }
 
         return choice;
     }
     static Integer[] serializeValidChoices(Set<Integer> keys) {
-        Integer[] itemKeyArray = keys.toArray(new Integer[keys.size()]);
+        Integer[] itemKeyArray = keys.toArray(new Integer[0]);
         List<Integer> validNumberList = new ArrayList<>(Arrays.asList(itemKeyArray));
         validNumberList.addAll(Arrays.asList(0, 99));
-        return  validNumberList.toArray(new Integer[validNumberList.size()]);
+        return  validNumberList.toArray(new Integer[0]);
 
     }
 
-    public static boolean isYes(String msg, Scanner sc) {
+    static boolean isYes(String msg, Scanner sc) {
         System.out.printf("%s", msg);
         String input = sc.next();
         while (!input.equalsIgnoreCase("y") &&
                !input.equalsIgnoreCase("n")) {
+            System.out.println("Pilih y/n ");
             input = sc.next();
         }
         return input.equalsIgnoreCase("y");
@@ -133,30 +152,31 @@ public class Main {
         }
     }
 
-    static void confirmPayment(Scanner sc) {
+    static void confirmPayment() {
         String header = printLine("Confirm Your Payment");
         System.out.println(header);
-        printDetailOrder(orderedMenu);
+        printDetailOrder();
         System.out.println("1. Konfirmasi dan Bayar");
         System.out.println("2. Kembali ke menu utama");
         System.out.println("0. Keluar aplikasi");
         System.out.println();
         Integer[] validNumber = {0,1,2};
-        int input = getUserInput("=> ", sc);
+        int input = getUserInput("=> ");
+
         while (!validChosenNumber(validNumber, input)){
             System.out.println("Pilih menu yang tersedia");
-            input = getUserInput("=> ", sc);
+            input = getUserInput("=> ");
         }
 
         if(input == 0) {
-            System.exit(0);
             System.out.println("Thank you :)");
+            System.exit(0);
         }
-        if (input == 1) {
-            printPaymentStruct(orderedMenu);
-        }else {
-            mainMenu();
-        }
+
+        if (input == 1) printPaymentStruct();
+        if (input == 2) mainMenu();
+
+
 
     }
 
@@ -167,17 +187,17 @@ public class Main {
         return false;
     }
 
-    static void printPaymentStruct(List<Item> ordered) {
+    static void printPaymentStruct() {
         List<String> template = new ArrayList<>();
         String header         = printLine("BinarFud");
         String msg            = "Terima kasih sudah memesan\ndi BinarFud\n\n" +
-                                "Di bawahi ini adalah pesanan Anda";
+                                "Di bawah ini adalah pesanan Anda";
         String desc           = "Pembayaran: BinarCash";
         String footer         = printLine("Simpan struk ini sebagai\n\tbukti pembayaran");
 
         System.out.println(header);
         System.out.println(msg);
-        String detailOrderStr = printDetailOrder(ordered);
+        String detailOrderStr = printDetailOrder();
         System.out.println(desc);
         System.out.println(footer);
 
@@ -190,8 +210,8 @@ public class Main {
 
     }
 
-    static String printDetailOrder(List<Item> orderedMenu) {
-        StringBuilder sb = new StringBuilder();
+    static String printDetailOrder() {
+        StringBuilder sb    = new StringBuilder();
         int total           = 0;
         double totalPrice   = 0.00;
 
@@ -202,7 +222,7 @@ public class Main {
             int count       = orderedItem.count();
             total           += count;
             totalPrice      += (count * price);
-            String pesanan = String.format("%s  \t %d \t %.3f", name, count, price);
+            String pesanan  = String.format("%s  \t %d \t %.3f", name, count, price);
             sb.append(pesanan + "\n");
             System.out.print(pesanan + "\n");
         }
@@ -223,7 +243,13 @@ public class Main {
                 writer.newLine();
             }
         }catch (IOException e) {
-            System.out.println("Error " + e.getMessage());
+            System.err.println("Error " + e.getMessage());
         }
+    }
+
+    static String getErrorInputMsg(String msg) {
+        String footer = "\n" + "(Y) untuk lanjut" + "\n" +
+                        "(n) untuk keluar" + "\n";
+        return printLine(msg) + footer;
     }
 }
