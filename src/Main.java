@@ -14,7 +14,7 @@ public class Main {
         mainMenu();
     }
 
-    private static void mainMenu() {
+     static void mainMenu() {
         Scanner sc = new Scanner(System.in);
         Map<Integer, Item> map = mappingOrderMenu();
         boolean isYes = true;
@@ -29,14 +29,20 @@ public class Main {
                 return;
             }
             if (choice == 99) {
-                confirmPayment(orderedMenu, sc);
-                return;
+                if(orderedMenu.isEmpty()){
+                    System.out.println("Belum ada item yang ditambahkan");
+                    continue;
+                } else {
+                    confirmPayment(sc);
+                    return;
+                }
             }
             printLine("How many you want to buy : ");
             Item item =  map.get(choice);
             System.out.printf("%s \t| %.3f" ,item.name(), item.price());
-            System.out.println();
+            System.out.println("\ninput 0 untuk kembali");
             Integer qty = getUserInput("qty => ", sc);
+            if (qty == 0) continue;
             item.count(qty);
             orderedMenu.add(item);
             isYes = isYes("Lanjut (y/n) => ", sc);
@@ -47,11 +53,11 @@ public class Main {
     static Map<Integer,Item> mappingOrderMenu() {
         Map<Integer, Item> map = new HashMap<>();
 
-        map.put(1, new Food("Nasi Goreng",    15.000,1));
-        map.put(2, new Food("Mie Goreng",     15.000,1));
-        map.put(3, new Food("Nasi + Ayam",    18.000,1));
-        map.put(4, new Beverage("Es Teh Manis",3.000,1));
-        map.put(5, new Beverage("Es Jeruk",    5.000,1));
+        map.put(1, new Food("Nasi Goreng",    15.000));
+        map.put(2, new Food("Mie Goreng",     15.000));
+        map.put(3, new Food("Nasi + Ayam",    18.000));
+        map.put(4, new Beverage("Es Teh Manis",3.000));
+        map.put(5, new Beverage("Es Jeruk",    5.000));
         return map;
     }
 
@@ -68,21 +74,41 @@ public class Main {
     }
     static int getChoice(Scanner sc) {
         System.out.println("Silahkan pilih menu yang tersedia");
-        for (Map.Entry<Integer, Item> itemMap : mappingOrderMenu().entrySet()){
+        Map<Integer, Item> items = mappingOrderMenu();
+        for (Map.Entry<Integer, Item> itemMap : items.entrySet()){
             Item item = itemMap.getValue();
-            System.out.println(String.format("%d. %s \t  %f", itemMap.getKey(), item.name(), item.price()));
+            System.out.println(
+                    String.format("%d. %s\t \t| %.3f", itemMap.getKey(), item.name(), item.price())
+            );
         }
         System.out.println("99. Pesan dan Bayar");
         System.out.println(" 0. Keluar");
+        Integer[] validNumber = serializeValidChoices(items.keySet());
+        int choice;
         System.out.print("=> ");
-        int choice = sc.nextInt();
-        int[]validNumber = {0,1,2,3,4,5,99};
-        while (!validChosenNumber(validNumber, choice)){
+        while (true) {
+            if(sc.hasNextInt()){
+                choice = sc.nextInt();
+                break;
+            }else{
+                System.out.printf("Masukkan pilihan yang valid (%s)! : ", Arrays.toString(validNumber));
+                sc.next();
+            }
+        }
+
+        while (!validChosenNumber(validNumber, choice)) {
             System.out.print("Masukkan pilihan yang tersedia : ");
             choice = sc.nextInt();
         }
 
         return choice;
+    }
+    static Integer[] serializeValidChoices(Set<Integer> keys) {
+        Integer[] itemKeyArray = keys.toArray(new Integer[keys.size()]);
+        List<Integer> validNumberList = new ArrayList<>(Arrays.asList(itemKeyArray));
+        validNumberList.addAll(Arrays.asList(0, 99));
+        return  validNumberList.toArray(new Integer[validNumberList.size()]);
+
     }
 
     public static boolean isYes(String msg, Scanner sc) {
@@ -103,16 +129,11 @@ public class Main {
                 System.out.print("\033\004");
             }
         }catch (Exception e){
-            System.err.println("Error" + e.getMessage());;
+            System.err.println("Error" + e.getMessage());
         }
     }
 
-    static void confirmPayment(List<Item> orderedMenu, Scanner sc) {
-        if(orderedMenu.isEmpty()){
-            System.out.println("Belum ada item yang ditambahkan");
-            return;
-        }
-
+    static void confirmPayment(Scanner sc) {
         String header = printLine("Confirm Your Payment");
         System.out.println(header);
         printDetailOrder(orderedMenu);
@@ -120,13 +141,11 @@ public class Main {
         System.out.println("2. Kembali ke menu utama");
         System.out.println("0. Keluar aplikasi");
         System.out.println();
-        int[] validNumber = {0,1,2};
+        Integer[] validNumber = {0,1,2};
         int input = getUserInput("=> ", sc);
-
         while (!validChosenNumber(validNumber, input)){
             System.out.println("Pilih menu yang tersedia");
             input = getUserInput("=> ", sc);
-
         }
 
         if(input == 0) {
@@ -141,8 +160,7 @@ public class Main {
 
     }
 
-    static boolean validChosenNumber(int[] validNumber, int chosenNumber) {
-
+    static boolean validChosenNumber(Integer[] validNumber, int chosenNumber) {
         for (int num : validNumber) {
             if (num == chosenNumber ) return true;
         }
@@ -151,11 +169,11 @@ public class Main {
 
     static void printPaymentStruct(List<Item> ordered) {
         List<String> template = new ArrayList<>();
-        String header = printLine("BinarFud");
-        String msg = "Terima kasih sudah memesan\ndi BinarFud\n\n" +
-                     "Dibawahi ini adalah pesanan anda";
-        String desc = "Pembayaran: BinarCash";
-        String footer = printLine("Simpan struk ini sebagai\n\tbukti pembayaran");
+        String header         = printLine("BinarFud");
+        String msg            = "Terima kasih sudah memesan\ndi BinarFud\n\n" +
+                                "Di bawahi ini adalah pesanan Anda";
+        String desc           = "Pembayaran: BinarCash";
+        String footer         = printLine("Simpan struk ini sebagai\n\tbukti pembayaran");
 
         System.out.println(header);
         System.out.println(msg);

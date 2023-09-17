@@ -3,11 +3,11 @@ package Model;
 public abstract class Item {
     private String name;
     private double price;
-    private Integer count;
-    Item(String name, double price, Integer count) {
+    private Integer count = 0;
+    Item(String name, double price) {
         this.name = name;
         this.price = price;
-        this.count = count;
+        this.count++;
     }
 
     public double
