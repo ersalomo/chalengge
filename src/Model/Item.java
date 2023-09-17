@@ -1,8 +1,6 @@
 package Model;
 
-import com.sun.istack.internal.Nullable;
-
-public class Item {
+public abstract class Item {
     private String name;
     private double price;
     private Integer count;
