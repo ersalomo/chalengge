@@ -5,9 +5,10 @@ Terima kasih sudah memesan
 di BinarFud
 
 Di bawah ini adalah pesanan Anda
-Nasi Goreng  	 4 	 15.000
+Mie Goreng  	 1 	 15.000
+Es Teh Manis  	 4 	 3.000
 --------------------------------- +
-Total            4 	 60.000
+Total            5 	 27.000
 Pembayaran: BinarCash
 ==================================
 Simpan struk ini sebagai

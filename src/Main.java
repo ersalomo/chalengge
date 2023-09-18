@@ -143,8 +143,9 @@ public class Main {
     static void clearConsole(){
         try {
             if (System.getProperty("os.name").contains("Windows")){
-                new ProcessBuilder().command("cmd", "/c", "cls").inheritIO().start().waitFor();
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             }else{
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
                 System.out.print("\033\004");
             }
         }catch (Exception e){
