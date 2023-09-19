@@ -4,8 +4,16 @@ import Test.abs.Employee;
 
 public class DataScience extends Employee {
 
-    public DataScience(String name, double salary, String department) {
-        super(name, salary, department);
+    public DataScience(
+            String id,
+            String name,
+            String address,
+            String dOb,
+            double salary,
+            String department,
+            boolean status
+    ) {
+        super(id, name, address ,dOb, salary, department, status);
     }
 
     @Override
