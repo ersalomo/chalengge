@@ -48,5 +48,7 @@ public abstract class Employee implements IEmp {
     }
 
     public abstract String work();
+    public abstract double calculateSalary();
+    public abstract double lembur();
 
 }

@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Department {
-    private String name;
-    private String address;
-    private String phone;
+    private String name, address, phone;
 
     private final List<Employee> employees;
 
@@ -43,5 +41,15 @@ public class Department {
             System.out.printf("Name : %s\t| Salary : %.3f", employee.getName(), employee.getSalary());
             System.out.println();
         }
+    }
+
+    public double totalExpenditure() {
+        double total = 0.00;
+
+        for (Employee emp : this.employees) {
+            System.out.println("Emp name" + emp.getName() + " Salary " + emp.getSalary());
+            total += emp.calculateSalary();
+        }
+        return total;
     }
 }
