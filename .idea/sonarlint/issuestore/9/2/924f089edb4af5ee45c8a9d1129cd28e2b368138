@@ -1,2 +1,6 @@
 
-G	java:S106+"+Replace this use of System.out by a logger.(ú¸ÜÙ8áÐàñª1
+S
+java:S18544"7Remove this useless assignment to local variable "who".(îç„8×í¹˜«1
+D
+java:S14814"(Remove this unused "who" local variable.(îç„8ßí¹˜«1
+L	java:S1069"+Replace this use of System.out by a logger.(Èè´èøÿÿÿÿ8ê„¾˜«1

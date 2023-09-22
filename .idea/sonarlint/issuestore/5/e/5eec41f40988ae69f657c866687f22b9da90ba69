@@ -1,11 +1,13 @@
 
-{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(æ³‘ùÿÿÿÿ8¯†Şñª1
-L	java:S106+"+Replace this use of System.out by a logger.(¦â¤®øÿÿÿÿ8Ã†Şñª1
-L	java:S106,"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿ8Ã†Şñª1
-E
-java:S1068	"(Remove this unused "name" private field.(Ë¥¼8Ã†Şñª1
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(æ³‘ùÿÿÿÿ8–ü›˜«1
+f
+java:S1659	"DDeclare "address" and all following declarations on a separate line.( Éß›ÿÿÿÿÿ8…Î˜«1
+L	java:S106)"+Replace this use of System.out by a logger.(¦â¤®øÿÿÿÿ8¦ü›˜«1
+L	java:S106*"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿ8¦ü›˜«1
+L	java:S1062"+Replace this use of System.out by a logger.(³¾—Æúÿÿÿÿ8Æ±Ã˜«1
+J
+java:S1068	"(Remove this unused "name" private field.( Éß›ÿÿÿÿÿ8¦ü›˜«1
 M
-java:S1068
-"+Remove this unused "address" private field.(÷§ùÿÿÿÿ8Ã†Şñª1
-F
-java:S1068")Remove this unused "phone" private field.(À†½´8Ã†Şñª1
+java:S1068	"+Remove this unused "address" private field.( Éß›ÿÿÿÿÿ8¦ü›˜«1
+K
+java:S1068	")Remove this unused "phone" private field.( Éß›ÿÿÿÿÿ8¦ü›˜«1
