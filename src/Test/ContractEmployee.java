@@ -2,7 +2,8 @@ package Test;
 
 import Test.abs.Employee;
 
-public class ContractEmployee extends Employee {
+public class
+ContractEmployee extends Employee {
     private long duration;
     private double bonusPerMonth;
 
