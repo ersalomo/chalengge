@@ -1,6 +1,4 @@
-package Model;
-
-import com.sun.istack.internal.Nullable;
+package com.Model;
 
 public class Food extends Item {
 

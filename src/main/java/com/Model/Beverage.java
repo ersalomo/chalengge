@@ -1,7 +1,4 @@
-package Model;
-
-import com.sun.istack.internal.Nullable;
-
+package com.Model;
 public class Beverage extends Item{
 
    public Beverage(String name, double price) {

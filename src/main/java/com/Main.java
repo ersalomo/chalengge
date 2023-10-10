@@ -1,6 +1,8 @@
-import Model.Beverage;
-import Model.Food;
-import Model.Item;
+package com;
+
+import com.Model.Beverage;
+import com.Model.Food;
+import com.Model.Item;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

@@ -16,3 +16,7 @@ Q.idea/sonarlint/securityhotspotstore/0/c/0c16091a0dc347392b3ddc99019c8df0d23236
 :
 
 struck.txt,2\b\2b88458cc073479a18d1aa60f2276f22827e67e0
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+=
+challenge.iml,6\7\6750e5a942980b740fb37e1169e5534d60323528
