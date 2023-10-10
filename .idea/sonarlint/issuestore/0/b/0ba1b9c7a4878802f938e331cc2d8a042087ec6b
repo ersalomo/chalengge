@@ -1,0 +1,36 @@
+
+z	java:S135"YReduce the total number of break and continue statements in this loop to use at most one.(ã‹€êıÿÿÿÿ8ñûŞÎ±1
+G	java:S106"+Replace this use of System.out by a logger.(Çµòİ8¥üŞÎ±1
+L	java:S106"+Replace this use of System.out by a logger.(äÇšòüÿÿÿÿ8¦üŞÎ±1
+L	java:S106 "+Replace this use of System.out by a logger.(‘¸ïõÿÿÿÿÿ8§üŞÎ±1
+G	java:S106*"+Replace this use of System.out by a logger.(òÆÕÙ8¨üŞÎ±1
+L	java:S106+"+Replace this use of System.out by a logger.(ğùè’ûÿÿÿÿ8¨üŞÎ±1
+G	java:S106W"+Replace this use of System.out by a logger.(¤«ºÑ8²üŞÎ±1
+G	java:S106]"+Replace this use of System.out by a logger.(¹å«ˆ8³üŞÎ±1
+G	java:S106`"+Replace this use of System.out by a logger.(¤«ºÑ8´üŞÎ±1
+G	java:S106i"+Replace this use of System.out by a logger.(è­ä×8µüŞÎ±1
+G	java:S106m"+Replace this use of System.out by a logger.(ÆÀûı8µüŞÎ±1
+G	java:S106q"+Replace this use of System.out by a logger.(²¾Œ÷8·üŞÎ±1
+L	java:S106r"+Replace this use of System.out by a logger.(µ¸€Ãüÿÿÿÿ8·üŞÎ±1
+H	java:S106„"+Replace this use of System.out by a logger.(Á±÷8»üŞÎ±1
+H	java:S106ˆ"+Replace this use of System.out by a logger.(ë×Óˆ8¼üŞÎ±1
+|
+java:S2142–"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(”ı¾8¾üŞÎ±1
+M	java:S106”"+Replace this use of System.out by a logger.(©¦Äşÿÿÿÿ8ÁüŞÎ±1
+M	java:S106—"+Replace this use of System.err by a logger.(›Æ½ÿÿÿÿÿ8ÃüŞÎ±1
+G	java:S106"+Replace this use of System.out by a logger.(ì«”x8ÄüŞÎ±1
+M	java:S106Ÿ"+Replace this use of System.out by a logger.(çïñÉúÿÿÿÿ8ÅüŞÎ±1
+H	java:S106 "+Replace this use of System.out by a logger.(’…ëÒ8ÅüŞÎ±1
+M	java:S106¡"+Replace this use of System.out by a logger.(Ø²»Èúÿÿÿÿ8ÆüŞÎ±1
+M	java:S106¢"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿ8ÆüŞÎ±1
+M	java:S106§"+Replace this use of System.out by a logger.(ƒõœÆûÿÿÿÿ8ÇüŞÎ±1
+M	java:S106¬"+Replace this use of System.out by a logger.(äÇšòüÿÿÿÿ8ÇüŞÎ±1
+G	java:S106Æ"+Replace this use of System.out by a logger.(ì«”x8ËüŞÎ±1
+G	java:S106Ç"+Replace this use of System.out by a logger.(‚š‰18ÌüŞÎ±1
+H	java:S106É"+Replace this use of System.out by a logger.(¹ŸÃÿ8ÌüŞÎ±1
+M	java:S106Ê"+Replace this use of System.out by a logger.(•ñ“ğùÿÿÿÿ8ÌüŞÎ±1
+M	java:S106Ú"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿ8ÏüŞÎ±1
+M	java:S106ã"+Replace this use of System.out by a logger.(Ùˆ¸äøÿÿÿÿ8ÑüŞÎ±1
+M	java:S106è"+Replace this use of System.out by a logger.(ä¢Ğ«üÿÿÿÿ8ÒüŞÎ±1
+H	java:S106é"+Replace this use of System.out by a logger.(ùğÊÔ8ÒüŞÎ±1
+M	java:S106ö"+Replace this use of System.err by a logger.(›Æ½ÿÿÿÿÿ8ÕüŞÎ±1

@@ -1,0 +1,52 @@
+
+K
+java:S3740Œ"/Provide the parametrized type for this generic.(Éúëåşÿÿÿÿ
+s	java:S135"YReduce the total number of break and continue statements in this loop to use at most one.(ã‹€êıÿÿÿÿ
+t
+java:S14889"^Immediately return this expression instead of assigning it to the temporary variable "header".(¶µ 
+?	java:S106"+Replace this use of System.out by a logger.(ì«”x
+E	java:S106"+Replace this use of System.out by a logger.(äÇšòüÿÿÿÿ
+E	java:S106&"+Replace this use of System.out by a logger.(ÑáÄãúÿÿÿÿ
+@	java:S106A"+Replace this use of System.out by a logger.(Á±÷
+@	java:S106E"+Replace this use of System.out by a logger.(è­ä×
+E	java:S106F"+Replace this use of System.out by a logger.(ôâ¯µûÿÿÿÿ
+@	java:S106G"+Replace this use of System.out by a logger.(Ã¦õç
+@	java:S106H"+Replace this use of System.out by a logger.(Â‘ğğ
+E	java:S106I"+Replace this use of System.out by a logger.(Ÿ¼Ñ–ûÿÿÿÿ
+E	java:S106J"+Replace this use of System.out by a logger.(óÍŒ¹ûÿÿÿÿ
+@	java:S106K"+Replace this use of System.out by a logger.(²¾Œ÷
+E	java:S106L"+Replace this use of System.out by a logger.(µ¸€Ãüÿÿÿÿ
+E	java:S106M"+Replace this use of System.out by a logger.(­–´½øÿÿÿÿ
+@	java:S106Q"+Replace this use of System.out by a logger.(”­é©
+@	java:S106Y"+Replace this use of System.out by a logger.(Á±÷
+t
+java:S2142i"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(”ı¾
+E	java:S106g"+Replace this use of System.out by a logger.(©¦Äşÿÿÿÿ
+E	java:S106j"+Replace this use of System.err by a logger.(é‚íşÿÿÿÿ
+7
+java:S1116j"Remove this empty statement.(é‚íşÿÿÿÿ
+E	java:S106p"+Replace this use of System.out by a logger.(‘¸ïõÿÿÿÿÿ
+?	java:S106u"+Replace this use of System.out by a logger.(ì«”x
+E	java:S106w"+Replace this use of System.out by a logger.(çïñÉúÿÿÿÿ
+@	java:S106x"+Replace this use of System.out by a logger.(’…ëÒ
+E	java:S106y"+Replace this use of System.out by a logger.(Ø²»Èúÿÿÿÿ
+E	java:S106z"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿ
+E	java:S106"+Replace this use of System.out by a logger.(ƒõœÆûÿÿÿÿ
+F	java:S106†"+Replace this use of System.out by a logger.(äÇšòüÿÿÿÿ
+R	java:S125‹"<This block of commented-out lines of code should be removed.(ãêÒò
+8
+java:S1116"Remove this empty statement.(ôŸìúÿÿÿÿ
+@	java:S106¢"+Replace this use of System.out by a logger.(ì«”x
+@	java:S106£"+Replace this use of System.out by a logger.(‚š‰1
+A	java:S106¥"+Replace this use of System.out by a logger.(¹ŸÃÿ
+F	java:S106¦"+Replace this use of System.out by a logger.(•ñ“ğùÿÿÿÿ
+F	java:S106¶"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿ
+F	java:S106¿"+Replace this use of System.out by a logger.(Ùˆ¸äøÿÿÿÿ
+h
+java:S3457Ã"Q%n should be used in place of \n to produce the platform-specific line separator.(Ä¸îÙ
+F	java:S106Ä"+Replace this use of System.out by a logger.(ä¢Ğ«üÿÿÿÿ
+@	java:S106Å"+Replace this use of System.out by a logger.(¶Áˆ5
+F	java:S106Ô"+Replace this use of System.out by a logger.(™ß”€ûÿÿÿÿ
+F	java:S106Û"+Replace this use of System.out by a logger.(™ß”€ûÿÿÿÿ
+F
+java:S2093Í"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
