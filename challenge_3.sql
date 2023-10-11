@@ -2,16 +2,16 @@ CREATE TABLE "users" (
   "id" bigint PRIMARY KEY NOT NULL,
   "email_addr" varchar(255) NOT NULL,
   "password" varchar(64) NOT NULL,
-  "created_at" timestamptz DEFAULT (now()),
-  "updated_at" timestamptz DEFAULT (now())
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
 );
 
 CREATE TABLE "merchants" (
   "id" bigint PRIMARY KEY NOT NULL,
   "marchant_name" varchar(255) NOT NULL,
   "marchant_location" varchar(255) NOT NULL,
-  "created_at" timestamptz DEFAULT (now()),
-  "updated_at" timestamptz DEFAULT (now())
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
 );
 
 CREATE TABLE "orders" (
@@ -20,8 +20,8 @@ CREATE TABLE "orders" (
   "destination_addr" varchar(255) NOT NULL,
   "user_id" biginter NOT NULL,
   "completed" tinyint DEFAULT 0,
-  "created_at" timestamptz DEFAULT (now()),
-  "updated_at" timestamptz DEFAULT (now())
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
 );
 
 CREATE TABLE "products" (
@@ -29,8 +29,8 @@ CREATE TABLE "products" (
   "product_name" varchar(255) NOT NULL,
   "price" double NOT NULL,
   "merchant_id" bigint,
-  "created_at" timestamptz DEFAULT (now()),
-  "updated_at" timestamptz DEFAULT (now())
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
 );
 
 CREATE TABLE "order_detail" (
@@ -39,8 +39,8 @@ CREATE TABLE "order_detail" (
   "product_id" biginter NOT NULL,
   "qty" int NOT NULL,
   "total_price" double NOT NULL,
-  "created_at" timestamptz DEFAULT (now()),
-  "updated_at" timestamptz DEFAULT (now())
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
 );
 
 CREATE INDEX ON "users" ("email_addr");

@@ -3,20 +3,19 @@ package com;
 import com.Model.Beverage;
 import com.Model.Food;
 import com.Model.Item;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
 public class Main {
-    private static List<Item> orderedMenu = new ArrayList<>();
+    public static List<Item> orderedMenu = new ArrayList<>();
 
     public static void main(String[] args) {
         mainMenu();
     }
 
-     static void mainMenu() {
+     public static void mainMenu() {
         Scanner sc = new Scanner(System.in);
         Map<Integer, Item> map = mappingOrderMenu();
         boolean isYes = true;
@@ -53,7 +52,7 @@ public class Main {
         sc.close();
 
     }
-    static void addOrder(Item selectedItem, Integer qty) {
+    public static void addOrder(Item selectedItem, Integer qty) {
         boolean isSameItem = false;
         for (Item item : orderedMenu) {
             if (item.name().equals(selectedItem.name())) {
@@ -68,7 +67,7 @@ public class Main {
         }
 
     }
-    static Map<Integer,Item> mappingOrderMenu() {
+    public static Map<Integer,Item> mappingOrderMenu() {
         Map<Integer, Item> map = new HashMap<>();
         map.put(1, new Food("Nasi Goreng",    15.000));
         map.put(2, new Food("Mie Goreng",     15.000));
@@ -78,14 +77,14 @@ public class Main {
         return map;
     }
 
-    static String printLine(String msg) {
+    public static String printLine(String msg) {
         return String.format(
                         "==================================\n" +
                         "%s \n" +
                         "=================================="
         , msg);
     }
-    static int getUserInput(String msg) {
+    public static int getUserInput(String msg) {
         Scanner sc = new Scanner(System.in);
         System.out.print(msg);
 
@@ -104,7 +103,7 @@ public class Main {
         }
     }
 
-    static int getChoice() {
+    public static int getChoice() {
         System.out.println("Silahkan pilih menu yang tersedia");
         Map<Integer, Item> items = mappingOrderMenu();
         for (Map.Entry<Integer, Item> itemMap : items.entrySet()){
@@ -123,7 +122,7 @@ public class Main {
 
         return choice;
     }
-    static Integer[] serializeValidChoices(Set<Integer> keys) {
+    public static Integer[] serializeValidChoices(Set<Integer> keys) {
         Integer[] itemKeyArray = keys.toArray(new Integer[0]);
         List<Integer> validNumberList = new ArrayList<>(Arrays.asList(itemKeyArray));
         validNumberList.addAll(Arrays.asList(0, 99));
@@ -131,7 +130,7 @@ public class Main {
 
     }
 
-    static boolean isYes(String msg, Scanner sc) {
+    public static boolean isYes(String msg, Scanner sc) {
         System.out.printf("%s", msg);
         String input = sc.next();
         while (!input.equalsIgnoreCase("y") &&
@@ -142,7 +141,7 @@ public class Main {
         return input.equalsIgnoreCase("y");
     }
 
-    static void clearConsole(){
+    public static void clearConsole(){
         try {
             if (System.getProperty("os.name").contains("Windows")){
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -155,7 +154,7 @@ public class Main {
         }
     }
 
-    static void confirmPayment() {
+    public static void confirmPayment() {
         String header = printLine("Confirm Your Payment");
         System.out.println(header);
         printDetailOrder();
@@ -183,14 +182,14 @@ public class Main {
 
     }
 
-    static boolean validChosenNumber(Integer[] validNumber, int chosenNumber) {
+    public static boolean validChosenNumber(Integer[] validNumber, int chosenNumber) {
         for (int num : validNumber) {
             if (num == chosenNumber ) return true;
         }
         return false;
     }
 
-    static void printPaymentStruct() {
+    public static void printPaymentStruct() {
         List<String> template = new ArrayList<>();
         String header         = printLine("BinarFud");
         String msg            = "Terima kasih sudah memesan\ndi BinarFud\n\n" +
@@ -213,7 +212,7 @@ public class Main {
 
     }
 
-    static String printDetailOrder() {
+    public static String printDetailOrder() {
         StringBuilder sb    = new StringBuilder();
         int total           = 0;
         double totalPrice   = 0.00;
@@ -239,7 +238,7 @@ public class Main {
         return sb.toString();
     }
 
-    static void saveStruct(List<String> desc) {
+    public static void saveStruct(List<String> desc) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("struck.txt"))){
             for (String line : desc) {
                 writer.write(line);
@@ -250,7 +249,7 @@ public class Main {
         }
     }
 
-    static String getErrorInputMsg(String msg) {
+    public static String getErrorInputMsg(String msg) {
         String footer = "\n" + "(Y) untuk lanjut" + "\n" +
                         "(n) untuk keluar" + "\n";
         return printLine(msg) + footer;
